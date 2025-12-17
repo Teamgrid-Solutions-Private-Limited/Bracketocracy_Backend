@@ -1,5 +1,7 @@
 node_modules/
- .env
+.env
+.env.dev
+.env.development
 package-lock.json
 
 # Logs

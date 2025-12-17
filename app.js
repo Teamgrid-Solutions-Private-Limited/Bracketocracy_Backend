@@ -39,16 +39,22 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 
  
+const MongoStore = require("connect-mongo");
+
 app.use(
   session({
     secret: process.env.COOKIE_KEY,
     resave: false,
-    saveUninitialized: false, // Generally safer to prevent unmodified sessions from being stored
+    saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGODB_URI,
+      ttl: 24 * 60 * 60, // 1 day
+    }),
     cookie: {
-      secure: true, // Ensures cookies are only sent over HTTPS
-      httpOnly: true, // Prevents client-side JavaScript from accessing the cookie
-      sameSite: "strict", // Prevents CSRF attacks; use "lax" if you need cross-site requests
-      maxAge: 24 * 60 * 60 * 1000, // Optional: sets cookie expiration time (e.g., 1 day)
+      secure: process.env.NODE_ENV === "production",
+      httpOnly: true,
+      sameSite: "strict",
+      maxAge: 24 * 60 * 60 * 1000,
     },
   })
 );
@@ -93,7 +99,11 @@ app.get("/", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`server has started at port ${PORT}`);
+  console.log(`\n========================================`);
+  console.log(`🚀 Server started at port ${PORT}`);
+  console.log(`📌 Environment: ${process.env.NODE_ENV || 'development'}`);
+  
+  console.log(`========================================\n`);
 });
 
  

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 // Connection URI
 const uri =process.env.MONGODB_URI;
-
+console.log(`🗄️  Database: ${process.env.MONGODB_URI}`);
 const DB = mongoose.connect(uri);
 
 DB.then(() => {
