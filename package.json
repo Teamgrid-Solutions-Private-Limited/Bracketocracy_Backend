@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js",
-    "dev": "set NODE_ENV=development&& nodemon -r dotenv/config app.js -- dotenv_config_path=.env.dev",
+    "dev": "set NODE_ENV=development&& nodemon -r dotenv/config app.js -- dotenv_config_path=.env.development",
     "prod": "set NODE_ENV=production&& nodemon -r dotenv/config app.js -- dotenv_config_path=.env"
   },
   "keywords": [],
